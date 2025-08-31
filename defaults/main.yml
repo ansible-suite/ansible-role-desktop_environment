@@ -1,0 +1,2 @@
+desktop_environment_name: "{{ desktop_environment_default_name }}"
+desktop_environment_display_manager: "{{ desktop_environment_default_display_manager }}"

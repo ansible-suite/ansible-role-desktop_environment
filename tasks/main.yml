@@ -1,0 +1,26 @@
+- name: Include distribution-specific variables
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
+        - "{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml"
+        - "{{ ansible_facts.distribution }}.yml"
+        - "{{ ansible_facts.os_family }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
+
+- name: Include desktop environment-specific variables for '{{ desktop_environment_name }}'
+  ansible.builtin.include_vars: "{{ desktop_environment_name }}.yml"
+
+- name: Include display manager-specific variables for '{{ desktop_environment_display_manager }}'
+  ansible.builtin.include_vars: "{{ desktop_environment_display_manager }}.yml"
+
+- name: Configure the system
+  ansible.builtin.import_tasks: system.yml
+
+- name: Configure the desktop environment '{{ desktop_environment_name }}'
+  ansible.builtin.include_tasks: "{{ desktop_environment_name }}.yml"
+
+- name: Configure the display manager '{{ desktop_environment_display_manager }}'
+  ansible.builtin.include_tasks: "{{ desktop_environment_display_manager }}.yml"
