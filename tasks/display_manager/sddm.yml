@@ -1,0 +1,22 @@
+- name: Create SDDM configuration file
+  ansible.builtin.copy:
+    content: |
+      # Ansible managed
+      {% if desktop_environment_sddm_conf_pruned %}
+      {{ desktop_environment_sddm_conf_pruned | community.general.to_ini }}
+      {% endif %}
+    dest: /etc/sddm.conf.d/site.conf
+    mode: '644'
+
+- name: Check for the state file presence
+  ansible.builtin.stat:
+    path: /var/lib/sddm/state.conf
+  register: desktop_environment_sddm_state_stat
+
+- name: Remove the last remembered user
+  ansible.builtin.lineinfile:
+    path: /var/lib/sddm/state.conf
+    regexp: '^User='
+    line: User=
+    state: present
+  when: desktop_environment_sddm_state_stat.stat.exists
