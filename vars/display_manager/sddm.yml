@@ -1,0 +1,9 @@
+desktop_environment_sddm_conf_base:
+  General:
+    Numlock: "{{ 'on' if desktop_environment_numlock else None }}"
+  Users:
+    MinimumUid: "{{ desktop_environment_sddm_minimum_uid }}"
+    MaximumUid: "{{ desktop_environment_sddm_maximum_uid }}"
+    RememberLastUser: "{{ desktop_environment_remember_last_user }}"
+
+desktop_environment_sddm_conf_pruned: "{{ desktop_environment_sddm_conf | prune_nulls }}"

@@ -1,0 +1,19 @@
+# Destkop environment and display manager selection
+desktop_environment_name: "{{ desktop_environment_default_name }}"
+desktop_environment_display_manager: "{{ desktop_environment_default_display_manager }}"
+
+# High-level options
+desktop_environment_numlock: false
+desktop_environment_hide_users: false
+desktop_environment_remember_last_user: "{{ False if desktop_environment_hide_users else None }}"
+
+# SDDM-specific options
+desktop_environment_sddm_hide_users_uid: 100000
+desktop_environment_sddm_minimum_uid: "{{ desktop_environment_sddm_hide_users_uid if desktop_environment_hide_users else None }}"
+desktop_environment_sddm_maximum_uid: "{{ desktop_environment_sddm_hide_users_uid if desktop_environment_hide_users else None }}"
+desktop_environment_sddm_conf_de: {}
+desktop_environment_sddm_conf_additional: {}
+desktop_environment_sddm_conf: "{{
+  desktop_environment_sddm_conf_base |
+  combine(desktop_environment_sddm_conf_de) |
+  combine(desktop_environment_sddm_conf_additional) }}"

@@ -1,0 +1,2 @@
+# KDE Plasma is the only supported DE as of now
+desktop_environment_default_name: kde_plasma
