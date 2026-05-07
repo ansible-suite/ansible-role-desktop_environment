@@ -1,3 +1,6 @@
 galaxy_info:
-  description: Configure the desktop environment
   author: ansible-suite
+  role_name: desktop_environment
+  description: Configure the desktop environment
+  license: MIT
+  min_ansible_version: "2.16"
