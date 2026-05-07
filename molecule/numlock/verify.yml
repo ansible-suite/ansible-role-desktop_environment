@@ -1,0 +1,13 @@
+- name: Verify the configuration is present
+  hosts: all
+  vars:
+    sddm_conf_file: /etc/sddm.conf.d/site.conf
+  tasks:
+    - name: Import sddm_conf tasks
+      ansible.builtin.import_tasks:
+        file: ../default/tasks/sddm_conf.yml
+
+    - name: Assert the SDDM configuration dict contains the correct values
+      ansible.builtin.assert:
+        that:
+          - sddm_conf_dict.General.Numlock == "on"

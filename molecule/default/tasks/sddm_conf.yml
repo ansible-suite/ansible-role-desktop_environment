@@ -1,0 +1,21 @@
+- name: Get the SDDM config file status
+  ansible.builtin.stat:
+    path: "{{ sddm_conf_file }}"
+  register: sddm_conf_stat
+
+- name: Assert that the SDDM config file exists
+  ansible.builtin.assert:
+    that: sddm_conf_stat.stat.exists
+
+- name: Slurp the SDDM config file
+  ansible.builtin.slurp:
+    src: "{{ sddm_conf_file }}"
+  register: sddm_conf_slurp
+
+- name: Get the SDDM config file contents as dict
+  ansible.builtin.set_fact:
+    sddm_conf_dict: "{{ sddm_conf_slurp.content | b64decode | community.general.from_ini }}"
+
+- name: Print the SDDM config dict
+  ansible.builtin.debug:
+    var: sddm_conf_dict

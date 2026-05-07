@@ -1,0 +1,5 @@
+- name: Test the ansible-suite.desktop_environment role
+  hosts: all
+  become: true
+  roles:
+    - role: ansible-suite.desktop_environment

@@ -1,0 +1,8 @@
+- name: Test the ansible-suite.desktop_environment role
+  hosts: all
+  become: true
+  roles:
+    - role: ansible-suite.desktop_environment
+      vars:
+        desktop_environment_numlock: true
+        desktop_environment_hide_users: true
