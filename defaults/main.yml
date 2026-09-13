@@ -15,5 +15,5 @@ desktop_environment_sddm_conf_de: {}
 desktop_environment_sddm_conf_additional: {}
 desktop_environment_sddm_conf: "{{
   desktop_environment_sddm_conf_base |
-  combine(desktop_environment_sddm_conf_de) |
-  combine(desktop_environment_sddm_conf_additional) }}"
+  combine(desktop_environment_sddm_conf_de, recursive=true) |
+  combine(desktop_environment_sddm_conf_additional, recursive=true) }}"
